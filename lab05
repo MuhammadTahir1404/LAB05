@@ -1,0 +1,45 @@
+import java.util.Random;
+
+	public class RandomCharacterPrinter {
+	    
+	    // Function to print a random letter from A to Z
+	    public static void printRandomChar() {
+	        for (int i = 0; i < 26; i++) {  // Loop to print 26 characters
+	            // Generate a random number between 0 and 25
+	            int randomNum = (int) (Math.random() * 26);
+	            char randomChar = (char) (randomNum + 'A');  // 'A' has ASCII value 65
+
+	            // Print the random character
+	            System.out.print(randomChar + " ");
+
+	            // Random delay for fluctuating effect
+	            try {
+	                Thread.sleep((long) (Math.random() * 500));  // sleep for a random time (up to 500ms)
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        // Create a thread to execute the printRandomChar function
+	        Thread randomThread = new Thread(new Runnable() {
+	            @Override
+	            public void run() {
+	                printRandomChar();
+	            }
+	        });
+
+	        // Start the thread
+	        randomThread.start();
+
+	        // Wait for the thread to finish
+	        try {
+	            randomThread.join();
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+
+	        System.out.println("\nDone!");
+	    }
+	}
